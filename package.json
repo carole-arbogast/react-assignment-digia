@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.15",
     "cz-conventional-changelog": "3.3.0",
     "import-sort-cli": "^6.0.0",
     "import-sort-style-module-scoped": "^1.0.3"
