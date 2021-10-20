@@ -22,7 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "commit": "cz"
+    "commit": "cz",
+    "sort-imports": "import-sort src/**.{js,ts,tsx} --write"
   },
   "eslintConfig": {
     "extends": [
@@ -43,11 +44,18 @@
     ]
   },
   "devDependencies": {
-    "cz-conventional-changelog": "3.3.0"
+    "cz-conventional-changelog": "3.3.0",
+    "import-sort-cli": "^6.0.0",
+    "import-sort-style-module-scoped": "^1.0.3"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module-scoped"
     }
   }
 }
