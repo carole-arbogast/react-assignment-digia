@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Header from "./components/Header";
+import { Table } from "./components/Table";
 import { GlobalStyle } from "./GlobalStyle";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
       <Header />
       <Container>
         <Title>List of participants</Title>
+        <Table />
       </Container>
     </div>
   );

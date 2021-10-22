@@ -1,6 +1,14 @@
 import styled from "styled-components";
+import faker from "faker";
 
 export function Table() {
+  const fakeParticipants = new Array(20).fill(null).map((e) => ({
+    name: faker.name.findName(),
+    email: faker.internet.email(),
+    phoneNumber: faker.phone.phoneNumberFormat(1),
+    id: faker.datatype.uuid(),
+  }));
+
   return (
     <TableWrapper cellSpacing="0">
       <TableHead>
@@ -13,20 +21,15 @@ export function Table() {
         </tr>
       </TableHead>
       <tbody>
-        <tr>
-          <TableRowCell>John Doe</TableRowCell>
-          <TableRowCell>john.doe@gmail.com</TableRowCell>
-          <TableRowCell>0405678471</TableRowCell>
-          <TableRowCell>Edit</TableRowCell>
-          <TableRowCell>Delete</TableRowCell>
-        </tr>
-        <tr>
-          <TableRowCell>John Doe</TableRowCell>
-          <TableRowCell>john.doe@gmail.com</TableRowCell>
-          <TableRowCell>0405678471</TableRowCell>
-          <TableRowCell>Edit</TableRowCell>
-          <TableRowCell>Delete</TableRowCell>
-        </tr>
+        {fakeParticipants.map((participant) => (
+          <tr key={participant.id}>
+            <TableRowCell>{participant.name}</TableRowCell>
+            <TableRowCell>{participant.email}</TableRowCell>
+            <TableRowCell>{participant.phoneNumber}</TableRowCell>
+            <TableRowCell>Edit</TableRowCell>
+            <TableRowCell>Delete</TableRowCell>
+          </tr>
+        ))}
       </tbody>
     </TableWrapper>
   );
