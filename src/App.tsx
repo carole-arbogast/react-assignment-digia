@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import AddParticipant from "./components/AddParticipant";
 import Header from "./components/Header";
 import { Table } from "./components/Table";
 import { GlobalStyle } from "./GlobalStyle";
@@ -11,6 +12,7 @@ function App() {
       <Header />
       <Container>
         <Title>List of participants</Title>
+        <AddParticipant />
         <Table />
       </Container>
     </div>
@@ -18,7 +20,6 @@ function App() {
 }
 
 const Container = styled.div`
-  max-width: 912px;
   margin: 2rem;
 `;
 
