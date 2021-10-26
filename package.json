@@ -29,7 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "commit": "cz",
-    "sort-imports": "import-sort src/**.{js,ts,tsx} --write"
+    "sort-imports": "import-sort src/**/**.{js,ts,tsx} --write"
   },
   "eslintConfig": {
     "extends": [
