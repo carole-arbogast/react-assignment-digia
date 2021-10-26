@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import TableRow, { Participant } from "./TableRow";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 interface FormData {
   participants: {
@@ -30,10 +30,20 @@ export function Table(props: Props) {
   const methods = useForm<FormData>({
     defaultValues: { participants },
   });
-  const { fields } = useFieldArray({
+
+  useEffect(() => {
+    methods.reset({ participants });
+  }, [participants, methods]);
+
+  const { fields, remove } = useFieldArray({
     name: "participants",
     control: methods.control,
   });
+
+  const handleDeleteParticipant = (index: number) => {
+    remove(index);
+    methods.handleSubmit(onSubmit);
+  };
 
   return (
     <FormProvider {...methods}>
@@ -53,7 +63,8 @@ export function Table(props: Props) {
                 <TableRow
                   participant={participant}
                   index={index}
-                  onEditClick={setEditingRow}
+                  onEdit={setEditingRow}
+                  onDelete={handleDeleteParticipant}
                   isEditing={editingRow === participant.id}
                 />
               </Fragment>

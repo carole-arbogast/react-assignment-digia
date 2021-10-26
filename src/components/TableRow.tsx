@@ -13,42 +13,39 @@ export interface Participant {
 interface Props {
   participant: Participant;
   index: number;
-  onEditClick: Function;
+  onEdit: Function;
   isEditing?: boolean;
+  onDelete: (index: number) => void;
 }
 
 export function TableRow(props: Props) {
   const { register, watch } = useFormContext();
 
-  const { participant, index, onEditClick, isEditing } = props;
-  console.log(participant.name);
+  const { participant, index, onEdit, isEditing, onDelete } = props;
 
   return isEditing ? (
     <tr>
       <TableRowCell padding="1rem">
         <Input
-          defaultValue={participant.name}
           {...register(`participants.${index}.name`)}
           placeholder={"Full name"}
         />
       </TableRowCell>
       <TableRowCell padding="1rem">
         <Input
-          defaultValue={participant.email}
           {...register(`participants.${index}.email`)}
           placeholder={"E-mail address"}
         />
       </TableRowCell>
       <TableRowCell padding="1rem">
         <Input
-          defaultValue={participant.phone}
           {...register(`participants.${index}.phone`)}
           placeholder={"Phone number"}
         />
       </TableRowCell>
       <TableRowCell padding="1rem">
         <FlexWrapper>
-          <Button inverted onClick={() => onEditClick(null)}>
+          <Button inverted onClick={() => onEdit(null)}>
             Cancel
           </Button>
           <Button type="submit">Save</Button>
@@ -64,10 +61,10 @@ export function TableRow(props: Props) {
       <TableRowCell>{watch(`participants.${index}.phone`)}</TableRowCell>
       <TableRowCell colSpan={2}>
         <FlexWrapper>
-          <IconButton onClick={() => onEditClick(participant.id)}>
+          <IconButton onClick={() => onEdit(participant.id)}>
             <StyledIcon icon={faPen} />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => onDelete(index)}>
             <StyledIcon icon={faTrash} />
           </IconButton>
         </FlexWrapper>

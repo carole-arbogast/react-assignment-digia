@@ -20,13 +20,18 @@ function App() {
 
   console.log(participants);
 
+  const handleAddParticipant = (newParticipant: Participant) => {
+    const newList = [...participants, newParticipant];
+    setParticipants(newList);
+  };
+
   return (
     <div className="App">
       <GlobalStyle />
       <Header />
       <Container>
         <Title>List of participants</Title>
-        <AddParticipant />
+        <AddParticipant onAddParticipant={handleAddParticipant} />
         <Table participants={participants} onUpdate={setParticipants} />
       </Container>
     </div>
