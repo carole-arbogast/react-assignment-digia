@@ -1,31 +1,67 @@
 import styled from "styled-components";
-import faker from "faker";
-import TableRow from "./TableRow";
+import TableRow, { Participant } from "./TableRow";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { Fragment, useState } from "react";
 
-export function Table() {
-  const fakeParticipants = new Array(20).fill(null).map((e) => ({
-    name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-    email: faker.internet.email(),
-    phoneNumber: faker.phone.phoneNumberFormat(1),
-    id: faker.datatype.uuid(),
-  }));
+interface FormData {
+  participants: {
+    name: string;
+    email: string;
+    phone: string;
+  }[];
+}
+
+interface Props {
+  // TODO type
+  onUpdate: Function;
+  participants: Participant[];
+}
+
+export function Table(props: Props) {
+  const [editingRow, setEditingRow] = useState<string | null>();
+
+  const { onUpdate, participants } = props;
+
+  const onSubmit = (data: FormData) => {
+    onUpdate(data.participants);
+    setEditingRow(null);
+  };
+
+  const methods = useForm<FormData>({
+    defaultValues: { participants },
+  });
+  const { fields } = useFieldArray({
+    name: "participants",
+    control: methods.control,
+  });
 
   return (
-    <TableWrapper cellSpacing="0">
-      <TableHead>
-        <tr>
-          <TableHeadCell width={"20%"}>Name</TableHeadCell>
-          <TableHeadCell width={"30%"}>E-mail address</TableHeadCell>
-          <TableHeadCell width={"25%"}>Phone number</TableHeadCell>
-          <TableHeadCell width={"25%"}></TableHeadCell>
-        </tr>
-      </TableHead>
-      <tbody>
-        {fakeParticipants.map((participant) => (
-          <TableRow participant={participant} />
-        ))}
-      </tbody>
-    </TableWrapper>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <TableWrapper cellSpacing="0">
+          <TableHead>
+            <tr>
+              <TableHeadCell width={"20%"}>Name</TableHeadCell>
+              <TableHeadCell width={"30%"}>E-mail address</TableHeadCell>
+              <TableHeadCell width={"25%"}>Phone number</TableHeadCell>
+              <TableHeadCell width={"25%"}></TableHeadCell>
+            </tr>
+          </TableHead>
+          <tbody>
+            {fields.map((participant, index) => (
+              <Fragment key={participant.id}>
+                <TableRow
+                  participant={participant}
+                  index={index}
+                  onEditClick={setEditingRow}
+                  isEditing={editingRow === participant.id}
+                />
+              </Fragment>
+            ))}
+          </tbody>
+        </TableWrapper>
+      </form>
+    </FormProvider>
   );
 }
 

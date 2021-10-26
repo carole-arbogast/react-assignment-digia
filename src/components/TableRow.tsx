@@ -1,52 +1,70 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useFormContext } from "react-hook-form";
 
-interface Participant {
+export interface Participant {
   id: string;
   name: string;
   email: string;
-  phoneNumber: string;
+  phone: string;
 }
 
 interface Props {
   participant: Participant;
+  index: number;
+  onEditClick: Function;
+  isEditing?: boolean;
 }
 
 export function TableRow(props: Props) {
-  const { participant } = props;
+  const { register, watch } = useFormContext();
 
-  const [isEditing, setIsEditing] = useState<boolean>();
+  const { participant, index, onEditClick, isEditing } = props;
+  console.log(participant.name);
 
   return isEditing ? (
     <tr>
       <TableRowCell padding="1rem">
-        <Input placeholder={"Full name"} />
+        <Input
+          defaultValue={participant.name}
+          {...register(`participants.${index}.name`)}
+          placeholder={"Full name"}
+        />
       </TableRowCell>
       <TableRowCell padding="1rem">
-        <Input placeholder={"E-mail address"} />
+        <Input
+          defaultValue={participant.email}
+          {...register(`participants.${index}.email`)}
+          placeholder={"E-mail address"}
+        />
       </TableRowCell>
       <TableRowCell padding="1rem">
-        <Input placeholder={"Phone number"} />
+        <Input
+          defaultValue={participant.phone}
+          {...register(`participants.${index}.phone`)}
+          placeholder={"Phone number"}
+        />
       </TableRowCell>
       <TableRowCell padding="1rem">
         <FlexWrapper>
-          <Button inverted onClick={() => setIsEditing(false)}>
+          <Button inverted onClick={() => onEditClick(null)}>
             Cancel
           </Button>
-          <Button>Save</Button>
+          <Button type="submit">Save</Button>
         </FlexWrapper>
       </TableRowCell>
     </tr>
   ) : (
     <tr>
-      <TableRowCell>{participant.name}</TableRowCell>
-      <TableRowCell>{participant.email.toLowerCase()}</TableRowCell>
-      <TableRowCell>{participant.phoneNumber}</TableRowCell>
+      <TableRowCell>{watch(`participants.${index}.name`)}</TableRowCell>
+      <TableRowCell>
+        {watch(`participants.${index}.email`).toLowerCase()}
+      </TableRowCell>
+      <TableRowCell>{watch(`participants.${index}.phone`)}</TableRowCell>
       <TableRowCell colSpan={2}>
         <FlexWrapper>
-          <IconButton onClick={() => setIsEditing(true)}>
+          <IconButton onClick={() => onEditClick(participant.id)}>
             <StyledIcon icon={faPen} />
           </IconButton>
           <IconButton>
