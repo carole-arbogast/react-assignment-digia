@@ -24,7 +24,6 @@ export function AddParticipant(props: Props) {
   const { onAddParticipant } = props;
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
     onAddParticipant({ ...data, id: faker.datatype.uuid() });
     reset();
   };

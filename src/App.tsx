@@ -18,8 +18,6 @@ function App() {
   const [participants, setParticipants] =
     useState<Participant[]>(fakeParticipants);
 
-  console.log(participants);
-
   const handleAddParticipant = (newParticipant: Participant) => {
     const newList = [...participants, newParticipant];
     setParticipants(newList);
