@@ -1,10 +1,11 @@
+import faker from "faker";
 import { useState } from "react";
 import styled from "styled-components";
+
+import { GlobalStyle } from "./GlobalStyle";
 import AddParticipant from "./components/AddParticipant";
 import Header from "./components/Header";
 import { Table } from "./components/Table";
-import { GlobalStyle } from "./GlobalStyle";
-import faker from "faker";
 import { Participant } from "./components/TableRow";
 
 function App() {
