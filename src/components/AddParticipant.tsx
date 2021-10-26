@@ -1,7 +1,8 @@
+import faker from "faker";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+
 import { Button, Input } from "./TableRow";
-import faker from "faker";
 
 interface FormData {
   name: string;

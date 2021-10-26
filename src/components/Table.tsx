@@ -1,7 +1,8 @@
-import styled from "styled-components";
-import TableRow, { Participant } from "./TableRow";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { Fragment, useEffect, useState } from "react";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import styled from "styled-components";
+
+import TableRow, { Participant } from "./TableRow";
 
 interface FormData {
   participants: {
