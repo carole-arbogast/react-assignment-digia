@@ -55,11 +55,15 @@ export function TableRow(props: Props) {
     </tr>
   ) : (
     <tr>
-      <TableRowCell>{watch(`participants.${index}.name`)}</TableRowCell>
-      <TableRowCell>
+      <TableRowCell onClick={() => onEdit(participant.id)}>
+        {watch(`participants.${index}.name`)}
+      </TableRowCell>
+      <TableRowCell onClick={() => onEdit(participant.id)}>
         {watch(`participants.${index}.email`).toLowerCase()}
       </TableRowCell>
-      <TableRowCell>{watch(`participants.${index}.phone`)}</TableRowCell>
+      <TableRowCell onClick={() => onEdit(participant.id)}>
+        {watch(`participants.${index}.phone`)}
+      </TableRowCell>
       <TableRowCell colSpan={2}>
         <FlexWrapper>
           <IconButton onClick={() => onEdit(participant.id)}>
