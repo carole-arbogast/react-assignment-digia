@@ -8,6 +8,10 @@ import Header from "./components/Header";
 import { Table } from "./components/Table";
 import { Participant } from "./components/TableRow";
 
+import sortBy from "lodash/sortBy";
+
+export type SortOption = "name" | "email" | "phone";
+
 function App() {
   const fakeParticipants = new Array(20).fill(null).map((e) => ({
     id: faker.datatype.uuid(),
@@ -18,6 +22,10 @@ function App() {
 
   const [participants, setParticipants] =
     useState<Participant[]>(fakeParticipants);
+
+  const [sortOption, setSortOption] = useState<SortOption>("name");
+
+  const sortedParticipants = sortBy(participants, sortOption);
 
   const handleAddParticipant = (newParticipant: Participant) => {
     const newList = [...participants, newParticipant];
@@ -31,7 +39,12 @@ function App() {
       <Container>
         <Title>List of participants</Title>
         <AddParticipant onAddParticipant={handleAddParticipant} />
-        <Table participants={participants} onUpdate={setParticipants} />
+        <Table
+          participants={sortedParticipants}
+          onUpdate={setParticipants}
+          onChangeSortOption={setSortOption}
+          sortOption={sortOption}
+        />
       </Container>
     </div>
   );

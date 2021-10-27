@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import styled from "styled-components";
+import { SortOption } from "../App";
 
 import TableRow, { Participant } from "./TableRow";
 
@@ -16,12 +17,14 @@ interface Props {
   // TODO type
   onUpdate: Function;
   participants: Participant[];
+  onChangeSortOption: (sortOption: SortOption) => void;
+  sortOption: SortOption;
 }
 
 export function Table(props: Props) {
   const [editingRow, setEditingRow] = useState<string | null>();
 
-  const { onUpdate, participants } = props;
+  const { onUpdate, participants, onChangeSortOption, sortOption } = props;
 
   const onSubmit = (data: FormData) => {
     onUpdate(data.participants);
@@ -52,9 +55,27 @@ export function Table(props: Props) {
         <TableWrapper cellSpacing="0">
           <TableHead>
             <tr>
-              <TableHeadCell width={"20%"}>Name</TableHeadCell>
-              <TableHeadCell width={"30%"}>E-mail address</TableHeadCell>
-              <TableHeadCell width={"25%"}>Phone number</TableHeadCell>
+              <TableHeadCell
+                width={"20%"}
+                onClick={() => onChangeSortOption("name")}
+                clickable
+              >
+                Name {sortOption === "name" && <span>&darr;</span>}
+              </TableHeadCell>
+              <TableHeadCell
+                width={"30%"}
+                onClick={() => onChangeSortOption("email")}
+                clickable
+              >
+                E-mail address {sortOption === "email" && <span>&darr;</span>}
+              </TableHeadCell>
+              <TableHeadCell
+                width={"25%"}
+                onClick={() => onChangeSortOption("phone")}
+                clickable
+              >
+                Phone number {sortOption === "phone" && <span>&darr;</span>}
+              </TableHeadCell>
               <TableHeadCell width={"25%"}></TableHeadCell>
             </tr>
           </TableHead>
@@ -90,11 +111,12 @@ const TableHead = styled.thead`
   font-weight: 500;
 `;
 
-const TableHeadCell = styled.th<{ width: string }>`
+const TableHeadCell = styled.th<{ width: string; clickable?: boolean }>`
   border-bottom: 1px solid #f1f1f1;
   text-align: left;
   padding: 1rem 0.5rem;
   width: ${(props) => props.width};
+  cursor: ${(props) => (props.clickable ? "pointer" : "default")};
 
   &:first-child {
     padding-left: 1rem;
