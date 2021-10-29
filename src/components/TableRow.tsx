@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import TableCell from "./TableCell";
 
 export interface Participant {
   id: string;
@@ -14,67 +15,76 @@ export interface Participant {
 interface Props {
   participant: Participant;
   index: number;
-  onEdit: Function;
+  onEdit: (participantId: string | null) => void;
   isEditing?: boolean;
   onDelete: (index: number) => void;
 }
 
+const tableCells = [
+  {
+    fieldName: "name",
+    placeHolder: "Full Name",
+  },
+  {
+    fieldName: "email",
+    placeHolder: "E-mail address",
+  },
+  {
+    fieldName: "phone",
+    placeHolder: "Phone number",
+  },
+];
+
 export function TableRow(props: Props) {
-  const { register, watch } = useFormContext();
+  const { reset } = useFormContext();
 
   const { participant, index, onEdit, isEditing, onDelete } = props;
 
-  return isEditing ? (
-    <tr>
-      <TableRowCell padding="1rem">
-        <Input
-          {...register(`participants.${index}.name`)}
-          placeholder={"Full name"}
-        />
-      </TableRowCell>
-      <TableRowCell padding="1rem">
-        <Input
-          {...register(`participants.${index}.email`)}
-          placeholder={"E-mail address"}
-        />
-      </TableRowCell>
-      <TableRowCell padding="1rem">
-        <Input
-          {...register(`participants.${index}.phone`)}
-          placeholder={"Phone number"}
-        />
-      </TableRowCell>
-      <TableRowCell padding="1rem">
-        <FlexWrapper>
-          <Button inverted onClick={() => onEdit(null)}>
-            Cancel
-          </Button>
-          <Button type="submit">Save</Button>
-        </FlexWrapper>
-      </TableRowCell>
-    </tr>
-  ) : (
-    <tr>
-      <TableRowCell onClick={() => onEdit(participant.id)}>
-        {watch(`participants.${index}.name`)}
-      </TableRowCell>
-      <TableRowCell onClick={() => onEdit(participant.id)}>
-        {watch(`participants.${index}.email`).toLowerCase()}
-      </TableRowCell>
-      <TableRowCell onClick={() => onEdit(participant.id)}>
-        {watch(`participants.${index}.phone`)}
-      </TableRowCell>
-      <TableRowCell colSpan={2}>
-        <FlexWrapper>
-          <IconButton onClick={() => onEdit(participant.id)}>
-            <StyledIcon icon={faPen} />
-          </IconButton>
-          <IconButton onClick={() => onDelete(index)}>
-            <StyledIcon icon={faTrash} />
-          </IconButton>
-        </FlexWrapper>
-      </TableRowCell>
-    </tr>
+  return (
+    <>
+      <tr>
+        {tableCells.map((cell) => (
+          <TableCell
+            key={cell.fieldName}
+            index={index}
+            fieldName={cell.fieldName}
+            placeHolder={cell.placeHolder}
+            isEditing={isEditing}
+            onEdit={() => onEdit(participant.id)}
+          ></TableCell>
+        ))}
+
+        {isEditing ? (
+          <TableRowCell smallPadding>
+            <FlexWrapper>
+              <Button
+                inverted
+                onClick={() => {
+                  reset();
+                  onEdit(null);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button type="submit">Save</Button>
+            </FlexWrapper>
+          </TableRowCell>
+        ) : (
+          <>
+            <TableRowCell colSpan={2}>
+              <FlexWrapper>
+                <IconButton onClick={() => onEdit(participant.id)}>
+                  <StyledIcon icon={faPen} />
+                </IconButton>
+                <IconButton onClick={() => onDelete(index)}>
+                  <StyledIcon icon={faTrash} />
+                </IconButton>
+              </FlexWrapper>
+            </TableRowCell>
+          </>
+        )}
+      </tr>
+    </>
   );
 }
 
@@ -85,19 +95,25 @@ const FlexWrapper = styled.div`
   justify-content: flex-end;
 `;
 
-export const TableRowCell = styled.td<{ padding?: string }>`
+interface TableRowCellProps {
+  smallPadding?: boolean;
+  noBottomPadding?: boolean;
+}
+
+export const TableRowCell = styled.td<TableRowCellProps>`
   border-bottom: 1px solid #f1f1f1;
   font-size: 1rem;
   line-height: 1.5rem;
-  padding: ${(props) => `${props.padding || "1.5rem"} 0.5rem`};
+  padding: ${(props) => `${props.smallPadding ? "1rem" : "1.5rem"} 0.5rem`};
   word-break: break-word;
+  padding-bottom: ${(props) => props.noBottomPadding && "0"};
 
   &:first-child {
-    padding-left: ${(props) => props.padding || "1.5rem"};
+    padding-left: ${(props) => (props.smallPadding ? "1rem" : "1.5rem")};
   }
 
   &:last-child {
-    padding-right: ${(props) => props.padding || "1.5rem"};
+    padding-right: ${(props) => (props.smallPadding ? "1rem" : "1.5rem")};
   }
 `;
 

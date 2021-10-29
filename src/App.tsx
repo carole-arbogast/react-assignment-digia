@@ -12,14 +12,14 @@ import sortBy from "lodash/sortBy";
 
 export type SortOption = "name" | "email" | "phone";
 
-function App() {
-  const fakeParticipants = new Array(20).fill(null).map((e) => ({
-    id: faker.datatype.uuid(),
-    name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-    email: faker.internet.email(),
-    phone: faker.phone.phoneNumberFormat(1),
-  }));
+const fakeParticipants: Participant[] = new Array(20).fill(null).map((e) => ({
+  id: faker.datatype.uuid(),
+  name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+  email: faker.internet.email().toLowerCase(),
+  phone: faker.phone.phoneNumberFormat(1),
+}));
 
+function App() {
   const [participants, setParticipants] =
     useState<Participant[]>(fakeParticipants);
 

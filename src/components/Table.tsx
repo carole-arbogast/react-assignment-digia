@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { SortOption } from "../App";
 
 import TableRow, { Participant } from "./TableRow";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 interface FormData {
   participants: {
@@ -21,6 +23,19 @@ interface Props {
   sortOption: SortOption;
 }
 
+const formSchema = yup.object({
+  participants: yup.array().of(
+    yup.object({
+      name: yup.string().required("This field is required."),
+      email: yup
+        .string()
+        .email("Please enter a valid email.")
+        .required("This field is required."),
+      phone: yup.string().required("This field is required"),
+    })
+  ),
+});
+
 export function Table(props: Props) {
   const [editingRow, setEditingRow] = useState<string | null>();
 
@@ -33,6 +48,7 @@ export function Table(props: Props) {
 
   const methods = useForm<FormData>({
     defaultValues: { participants },
+    resolver: yupResolver(formSchema),
   });
 
   useEffect(() => {
