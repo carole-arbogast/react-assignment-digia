@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import { GlobalStyle } from "./GlobalStyle";
+import { GlobalStyle } from "./components/GlobalStyle";
 import AddParticipant from "./components/AddParticipant";
 import Header from "./components/Header";
 import { Table } from "./components/Table";

@@ -1,10 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import styled from "styled-components";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { participantsListFormSchema, tableInfoCells } from "../config";
+import { TableHead, TableHeadCell, TableWrapper } from "../layouts/table";
 import TableRow from "./TableRow";
 
 interface Props {
@@ -80,28 +80,3 @@ export function Table(props: Props) {
     </FormProvider>
   );
 }
-
-const TableWrapper = styled.table`
-  background: #ffffff;
-  width: 912px;
-  table-layout: fixed;
-`;
-
-const TableHead = styled.thead`
-  color: #757575;
-  font-size: 14px;
-  line-height: 16px;
-  font-weight: 500;
-`;
-
-const TableHeadCell = styled.th<{ width: string; clickable?: boolean }>`
-  border-bottom: 1px solid #f1f1f1;
-  text-align: left;
-  padding: 1rem 0.5rem;
-  width: ${(props) => props.width};
-  cursor: ${(props) => (props.clickable ? "pointer" : "default")};
-
-  &:first-child {
-    padding-left: 1rem;
-  }
-`;

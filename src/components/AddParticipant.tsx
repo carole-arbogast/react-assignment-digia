@@ -6,7 +6,8 @@ import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { participantFormSchema, tableInfoCells } from "../config";
-import { Button, Input } from "./TableRow";
+import { Button } from "../layouts/buttons";
+import { Input, ValidationErrorMessage } from "../layouts/forms";
 
 interface Props {
   onAddParticipant: Function;
@@ -52,7 +53,9 @@ export function AddParticipant(props: Props) {
               placeholder={cell.placeHolder}
             ></Input>
             {errors[cell.fieldName] && (
-              <ErrorMessage>{errors[cell.fieldName].message} </ErrorMessage>
+              <ValidationErrorMessage>
+                {errors[cell.fieldName].message}{" "}
+              </ValidationErrorMessage>
             )}
           </Item>
         ))}
@@ -71,7 +74,6 @@ export function AddParticipant(props: Props) {
 const FlexWrapper = styled.div`
   display: flex;
   align-items: center;
-  align-content: center;
   box-sizing: border-box;
   background: #ffffff;
   width: 912px;
@@ -95,6 +97,7 @@ const Item = styled.div<{ width: string; noBottomPadding?: boolean }>`
 const StyledButton = styled(Button)`
   color: #757575;
   align-self: flex-end;
+  padding: 0 1.5rem;
 `;
 
 const SuccessText = styled.p`
@@ -102,14 +105,6 @@ const SuccessText = styled.p`
   font-size: 0.75rem;
   font-weight: 500;
   margin: 0 0 0.75rem 0;
-`;
-
-const ErrorMessage = styled.p`
-  margin: 0;
-  color: red;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 500;
 `;
 
 export default AddParticipant;
