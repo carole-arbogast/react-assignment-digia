@@ -1,69 +1,47 @@
 import { Fragment, useEffect, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import styled from "styled-components";
-import { SortOption } from "../App";
 
-import TableRow, { Participant } from "./TableRow";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 
-interface FormData {
-  participants: {
-    name: string;
-    email: string;
-    phone: string;
-  }[];
-}
+import { participantsListFormSchema, tableInfoCells } from "../config";
+import TableRow from "./TableRow";
 
 interface Props {
-  // TODO type
-  onUpdate: Function;
+  onUpdate: (participants: Participant[]) => void;
   participants: Participant[];
-  onChangeSortOption: (sortOption: SortOption) => void;
-  sortOption: SortOption;
+  onChangeSortOption: (sortOption: string) => void;
+  sortOption: string;
 }
-
-const formSchema = yup.object({
-  participants: yup.array().of(
-    yup.object({
-      name: yup.string().required("This field is required."),
-      email: yup
-        .string()
-        .email("Please enter a valid email.")
-        .required("This field is required."),
-      phone: yup.string().required("This field is required"),
-    })
-  ),
-});
 
 export function Table(props: Props) {
   const [editingRow, setEditingRow] = useState<string | null>();
 
   const { onUpdate, participants, onChangeSortOption, sortOption } = props;
 
-  const onSubmit = (data: FormData) => {
-    onUpdate(data.participants);
-    setEditingRow(null);
-  };
-
-  const methods = useForm<FormData>({
+  const methods = useForm<ParticipantsListForm>({
     defaultValues: { participants },
-    resolver: yupResolver(formSchema),
+    resolver: yupResolver(participantsListFormSchema),
   });
-
-  useEffect(() => {
-    methods.reset({ participants });
-  }, [participants, methods]);
 
   const { fields, remove } = useFieldArray({
     name: "participants",
     control: methods.control,
   });
 
+  const onSubmit = (data: ParticipantsListForm) => {
+    onUpdate(data.participants);
+    setEditingRow(null);
+  };
+
   const handleDeleteParticipant = (index: number) => {
     remove(index);
     methods.handleSubmit(onSubmit);
   };
+
+  useEffect(() => {
+    methods.reset({ participants });
+  }, [participants, methods]);
 
   return (
     <FormProvider {...methods}>
@@ -71,27 +49,16 @@ export function Table(props: Props) {
         <TableWrapper cellSpacing="0">
           <TableHead>
             <tr>
-              <TableHeadCell
-                width={"20%"}
-                onClick={() => onChangeSortOption("name")}
-                clickable
-              >
-                Name {sortOption === "name" && <span>&darr;</span>}
-              </TableHeadCell>
-              <TableHeadCell
-                width={"30%"}
-                onClick={() => onChangeSortOption("email")}
-                clickable
-              >
-                E-mail address {sortOption === "email" && <span>&darr;</span>}
-              </TableHeadCell>
-              <TableHeadCell
-                width={"25%"}
-                onClick={() => onChangeSortOption("phone")}
-                clickable
-              >
-                Phone number {sortOption === "phone" && <span>&darr;</span>}
-              </TableHeadCell>
+              {tableInfoCells.map((cell) => (
+                <TableHeadCell
+                  width={cell.width}
+                  onClick={() => onChangeSortOption(cell.fieldName)}
+                  clickable
+                >
+                  {cell.header}{" "}
+                  {sortOption === cell.fieldName && <span>&darr;</span>}
+                </TableHeadCell>
+              ))}
               <TableHeadCell width={"25%"}></TableHeadCell>
             </tr>
           </TableHead>

@@ -3,14 +3,9 @@ import styled from "styled-components";
 
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TableCell from "./TableCell";
 
-export interface Participant {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-}
+import { tableInfoCells } from "../config";
+import TableCell from "./TableCell";
 
 interface Props {
   participant: Participant;
@@ -20,21 +15,6 @@ interface Props {
   onDelete: (index: number) => void;
 }
 
-const tableCells = [
-  {
-    fieldName: "name",
-    placeHolder: "Full Name",
-  },
-  {
-    fieldName: "email",
-    placeHolder: "E-mail address",
-  },
-  {
-    fieldName: "phone",
-    placeHolder: "Phone number",
-  },
-];
-
 export function TableRow(props: Props) {
   const { reset } = useFormContext();
 
@@ -43,7 +23,7 @@ export function TableRow(props: Props) {
   return (
     <>
       <tr>
-        {tableCells.map((cell) => (
+        {tableInfoCells.map((cell) => (
           <TableCell
             key={cell.fieldName}
             index={index}

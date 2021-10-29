@@ -1,4 +1,3 @@
-import faker from "faker";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -6,24 +5,15 @@ import { GlobalStyle } from "./GlobalStyle";
 import AddParticipant from "./components/AddParticipant";
 import Header from "./components/Header";
 import { Table } from "./components/Table";
-import { Participant } from "./components/TableRow";
+import { fakeParticipants } from "./config";
 
 import sortBy from "lodash/sortBy";
-
-export type SortOption = "name" | "email" | "phone";
-
-const fakeParticipants: Participant[] = new Array(20).fill(null).map((e) => ({
-  id: faker.datatype.uuid(),
-  name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-  email: faker.internet.email().toLowerCase(),
-  phone: faker.phone.phoneNumberFormat(1),
-}));
 
 function App() {
   const [participants, setParticipants] =
     useState<Participant[]>(fakeParticipants);
 
-  const [sortOption, setSortOption] = useState<SortOption>("name");
+  const [sortOption, setSortOption] = useState("name");
 
   const sortedParticipants = sortBy(participants, sortOption);
 
