@@ -15,7 +15,6 @@ interface Props {
 }
 
 export function TableCell(props: Props) {
-  // TODO add field type
   const { index, isEditing, onEdit, fieldInfo } = props;
 
   const {
@@ -35,9 +34,13 @@ export function TableCell(props: Props) {
         })}
         placeholder={fieldInfo.placeHolder}
         type={fieldInfo.type}
+        aria-required={true}
+        aria-invalid={Boolean(error)}
       />
       {error && (
-        <ValidationErrorMessage>{error.message}</ValidationErrorMessage>
+        <ValidationErrorMessage role="alert">
+          {error.message}
+        </ValidationErrorMessage>
       )}
     </TableRowCell>
   ) : (

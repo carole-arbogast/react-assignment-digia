@@ -52,9 +52,11 @@ export function AddParticipant(props: Props) {
               {...register(cell.fieldName, { required: true })}
               placeholder={cell.placeHolder}
               type={cell.type}
+              aria-required
+              aria-invalid={Boolean(errors[cell.fieldName])}
             ></Input>
             {errors[cell.fieldName] && (
-              <ValidationErrorMessage>
+              <ValidationErrorMessage role="alert">
                 {errors[cell.fieldName].message}{" "}
               </ValidationErrorMessage>
             )}
