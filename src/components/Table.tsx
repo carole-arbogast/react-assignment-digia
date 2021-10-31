@@ -3,7 +3,7 @@ import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { participantsListFormSchema, tableInfoCells } from "../config";
+import { PARTICIPANT_LIST_FORM_SCHEMA, tableInfoCells } from "../config";
 import { TableHead, TableHeadCell, TableWrapper } from "../layouts/table";
 import TableRow from "./TableRow";
 
@@ -21,7 +21,7 @@ export function Table(props: Props) {
 
   const methods = useForm<ParticipantsListForm>({
     defaultValues: { participants },
-    resolver: yupResolver(participantsListFormSchema),
+    resolver: yupResolver(PARTICIPANT_LIST_FORM_SCHEMA),
   });
 
   const { fields, remove } = useFieldArray({

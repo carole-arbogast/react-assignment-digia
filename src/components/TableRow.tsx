@@ -29,10 +29,13 @@ export function TableRow(props: Props) {
           <TableCell
             key={cell.fieldName}
             index={index}
-            fieldName={cell.fieldName}
-            placeHolder={cell.placeHolder}
             isEditing={isEditing}
             onEdit={() => onEdit(participant.id)}
+            fieldInfo={{
+              name: cell.fieldName,
+              placeHolder: cell.placeHolder,
+              type: cell.type,
+            }}
           ></TableCell>
         ))}
 

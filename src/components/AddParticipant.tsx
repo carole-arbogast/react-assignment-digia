@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { participantFormSchema, tableInfoCells } from "../config";
+import { PARTICIPANT_FORM_SCHEMA, tableInfoCells } from "../config";
 import { Button } from "../layouts/buttons";
 import { Input, ValidationErrorMessage } from "../layouts/forms";
 
@@ -20,7 +20,7 @@ export function AddParticipant(props: Props) {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(participantFormSchema),
+    resolver: yupResolver(PARTICIPANT_FORM_SCHEMA),
   });
 
   const { onAddParticipant } = props;
@@ -51,6 +51,7 @@ export function AddParticipant(props: Props) {
             <Input
               {...register(cell.fieldName, { required: true })}
               placeholder={cell.placeHolder}
+              type={cell.type}
             ></Input>
             {errors[cell.fieldName] && (
               <ValidationErrorMessage>

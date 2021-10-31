@@ -1,7 +1,7 @@
 import faker from "faker";
 import * as yup from "yup";
 
-export const fakeParticipants: Participant[] = new Array(20)
+export const FAKE_PARTICIPANTS: Participant[] = new Array(20)
   .fill(null)
   .map(() => ({
     id: faker.datatype.uuid(),
@@ -10,7 +10,7 @@ export const fakeParticipants: Participant[] = new Array(20)
     phone: faker.phone.phoneNumberFormat(1),
   }));
 
-export const participantFormSchema = yup.object({
+export const PARTICIPANT_FORM_SCHEMA = yup.object({
   name: yup.string().required("This field is required."),
   email: yup
     .string()
@@ -19,8 +19,8 @@ export const participantFormSchema = yup.object({
   phone: yup.string().required("This field is required"),
 });
 
-export const participantsListFormSchema = yup.object({
-  participants: yup.array().of(participantFormSchema),
+export const PARTICIPANT_LIST_FORM_SCHEMA = yup.object({
+  participants: yup.array().of(PARTICIPANT_FORM_SCHEMA),
 });
 
 interface TableCell {
@@ -28,6 +28,7 @@ interface TableCell {
   header: string;
   placeHolder: string;
   width: string;
+  type: string;
 }
 
 export const tableInfoCells: TableCell[] = [
@@ -36,17 +37,20 @@ export const tableInfoCells: TableCell[] = [
     header: "Name",
     placeHolder: "Full Name",
     width: "20%",
+    type: "text",
   },
   {
     fieldName: "email",
     header: "E-mail address",
     placeHolder: "E-mail address",
     width: "30%",
+    type: "email",
   },
   {
     fieldName: "phone",
     header: "Phone number",
     placeHolder: "Phone number",
     width: "25%",
+    type: "tel",
   },
 ];

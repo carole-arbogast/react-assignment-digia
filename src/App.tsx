@@ -5,13 +5,13 @@ import { GlobalStyle } from "./components/GlobalStyle";
 import AddParticipant from "./components/AddParticipant";
 import Header from "./components/Header";
 import { Table } from "./components/Table";
-import { fakeParticipants } from "./config";
+import { FAKE_PARTICIPANTS } from "./config";
 
 import sortBy from "lodash/sortBy";
 
 function App() {
   const [participants, setParticipants] =
-    useState<Participant[]>(fakeParticipants);
+    useState<Participant[]>(FAKE_PARTICIPANTS);
 
   const [sortOption, setSortOption] = useState("name");
 
