@@ -24,7 +24,7 @@ export function TableRow(props: Props) {
 
   return (
     <>
-      <tr>
+      <tr data-cy="participant-row">
         {tableInfoCells.map((cell) => (
           <TableCell
             key={cell.fieldName}
@@ -40,28 +40,38 @@ export function TableRow(props: Props) {
         ))}
 
         {isEditing ? (
-          <TableRowCell smallPadding>
+          <TableRowCell smallPadding data-cy="edit-participant-form">
             <FlexWrapper>
               <Button
+                type="button"
                 inverted
                 onClick={() => {
                   reset();
                   onEdit(null);
                 }}
+                data-cy="cancel-btn"
               >
                 Cancel
               </Button>
-              <Button type="submit">Save</Button>
+              <Button type="submit" data-cy="save-btn">
+                Save
+              </Button>
             </FlexWrapper>
           </TableRowCell>
         ) : (
           <>
             <TableRowCell colSpan={2}>
               <FlexWrapper>
-                <IconButton onClick={() => onEdit(participant.id)}>
+                <IconButton
+                  onClick={() => onEdit(participant.id)}
+                  data-cy="edit-btn"
+                >
                   <StyledIcon icon={faPen} />
                 </IconButton>
-                <IconButton onClick={() => onDelete(index)}>
+                <IconButton
+                  onClick={() => onDelete(index)}
+                  data-cy="delete-btn"
+                >
                   <StyledIcon icon={faTrash} />
                 </IconButton>
               </FlexWrapper>

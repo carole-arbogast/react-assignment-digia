@@ -54,6 +54,8 @@ export function Table(props: Props) {
                   width={cell.width}
                   onClick={() => onChangeSortOption(cell.fieldName)}
                   clickable
+                  key={cell.fieldName}
+                  data-cy={`table-head-${cell.fieldName}`}
                 >
                   {cell.header}{" "}
                   {sortOption === cell.fieldName && <span>&darr;</span>}

@@ -36,15 +36,22 @@ export function TableCell(props: Props) {
         type={fieldInfo.type}
         aria-required={true}
         aria-invalid={Boolean(error)}
+        data-cy={`edit-participant-${fieldInfo.name}`}
       />
       {error && (
-        <ValidationErrorMessage role="alert">
+        <ValidationErrorMessage
+          role="alert"
+          data-cy={`validation-error-${fieldInfo.name}`}
+        >
           {error.message}
         </ValidationErrorMessage>
       )}
     </TableRowCell>
   ) : (
-    <TableRowCell onClick={() => onEdit()}>
+    <TableRowCell
+      onClick={() => onEdit()}
+      data-cy={`participant-info-${fieldInfo.name}`}
+    >
       {watch(`participants.${index}.${fieldInfo.name}`)}
     </TableRowCell>
   );

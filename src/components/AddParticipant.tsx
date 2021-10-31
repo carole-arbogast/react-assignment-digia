@@ -47,6 +47,7 @@ export function AddParticipant(props: Props) {
           <Item
             width={cell.width}
             noBottomPadding={Boolean(errors[cell.fieldName])}
+            key={cell.fieldName}
           >
             <Input
               {...register(cell.fieldName, { required: true })}
@@ -54,9 +55,13 @@ export function AddParticipant(props: Props) {
               type={cell.type}
               aria-required
               aria-invalid={Boolean(errors[cell.fieldName])}
+              data-cy={`add-participant-${cell.fieldName}`}
             ></Input>
             {errors[cell.fieldName] && (
-              <ValidationErrorMessage role="alert">
+              <ValidationErrorMessage
+                role="alert"
+                data-cy={`validation-error-${cell.fieldName}`}
+              >
                 {errors[cell.fieldName].message}{" "}
               </ValidationErrorMessage>
             )}
@@ -64,12 +69,16 @@ export function AddParticipant(props: Props) {
         ))}
 
         <Item width={"25%"}>
-          <StyledButton type="submit" inverted>
+          <StyledButton data-cy="add-participant-btn" type="submit" inverted>
             Add new
           </StyledButton>
         </Item>
       </FlexWrapper>
-      {success && <SuccessText>Participant successfully created</SuccessText>}
+      {success && (
+        <SuccessText data-cy="success-text">
+          Participant successfully created
+        </SuccessText>
+      )}
     </form>
   );
 }
