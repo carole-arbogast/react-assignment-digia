@@ -7,7 +7,7 @@ describe("Participant list", () => {
     cy.visit("/");
   });
 
-  it.only("should be able to create a new participant", () => {
+  it("should be able to create a new participant", () => {
     const newParticipant = {
       name: "John Doe",
       email: "john@doe.com",
