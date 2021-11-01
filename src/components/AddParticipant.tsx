@@ -21,6 +21,8 @@ export function AddParticipant(props: Props) {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(PARTICIPANT_FORM_SCHEMA),
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
   });
 
   const { onAddParticipant } = props;
