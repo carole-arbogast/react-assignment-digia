@@ -36,7 +36,7 @@ export function Table(props: Props) {
 
   const handleDeleteParticipant = (index: number) => {
     remove(index);
-    methods.handleSubmit(onSubmit);
+    methods.handleSubmit(onSubmit)();
   };
 
   useEffect(() => {
