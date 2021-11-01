@@ -1,6 +1,14 @@
 import faker from "faker";
 import * as yup from "yup";
 
+interface TableCell {
+  fieldName: string;
+  header: string;
+  placeHolder: string;
+  width: string;
+  type: string;
+}
+
 export const FAKE_PARTICIPANTS: Participant[] = new Array(20)
   .fill(null)
   .map(() => ({
@@ -22,14 +30,6 @@ export const PARTICIPANT_FORM_SCHEMA = yup.object({
 export const PARTICIPANT_LIST_FORM_SCHEMA = yup.object({
   participants: yup.array().of(PARTICIPANT_FORM_SCHEMA),
 });
-
-interface TableCell {
-  fieldName: string;
-  header: string;
-  placeHolder: string;
-  width: string;
-  type: string;
-}
 
 export const tableInfoCells: TableCell[] = [
   {
