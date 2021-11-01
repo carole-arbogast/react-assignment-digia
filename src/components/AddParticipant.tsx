@@ -48,7 +48,7 @@ export function AddParticipant(props: Props) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FlexWrapper>
         {tableInfoCells.map((cell) => (
-          <Item
+          <TableCell
             width={cell.width}
             noBottomPadding={Boolean(errors[cell.fieldName])}
             key={cell.fieldName}
@@ -69,14 +69,14 @@ export function AddParticipant(props: Props) {
                 {errors[cell.fieldName].message}{" "}
               </ValidationErrorMessage>
             )}
-          </Item>
+          </TableCell>
         ))}
 
-        <Item width={"25%"}>
+        <TableCell width={"25%"}>
           <StyledButton data-cy="add-participant-btn" type="submit" inverted>
             Add new
           </StyledButton>
-        </Item>
+        </TableCell>
       </FlexWrapper>
       {success && (
         <SuccessText data-cy="success-text">
@@ -96,7 +96,7 @@ const FlexWrapper = styled.div`
   margin-bottom: 0.75rem;
 `;
 
-const Item = styled.div<{ width: string; noBottomPadding?: boolean }>`
+const TableCell = styled.div<{ width: string; noBottomPadding?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
