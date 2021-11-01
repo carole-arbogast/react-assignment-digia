@@ -36,10 +36,12 @@ export function AddParticipant(props: Props) {
   };
 
   useEffect(() => {
-    let timer = setTimeout(() => setSuccess(false), 3000);
-    return () => {
-      clearTimeout(timer);
-    };
+    if (success) {
+      let timer = setTimeout(() => setSuccess(false), 3000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
   }, [success]);
 
   return (
