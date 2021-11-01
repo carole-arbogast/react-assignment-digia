@@ -19,7 +19,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Running tests
 
-The application is tested with Cypress. To run the tests, you first need need to start the server:
+The application is tested with Cypress. To run the tests, you first need to start the server:
 
 ### `BROWSER=none yarn start` or `BROWSER=none npm start`
 
@@ -31,4 +31,4 @@ Next, start Cypress:
 
 Note: if you're using npm, please refer to the [official documentation](https://docs.cypress.io/guides/getting-started/installing-cypress#Opening-Cypress) to start Cypress.
 
-Once Cypress is open, you can choose which test suite to launch. For now there is only one called "index.spec.js". All the tests will be run automatically in the browser you've selected.
+Once Cypress is open, you can choose which test suite to launch. For now there is only one called "index.spec.ts". All the tests will be run automatically in the browser you've selected.
