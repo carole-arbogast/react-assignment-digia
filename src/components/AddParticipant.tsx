@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { PARTICIPANT_FORM_SCHEMA, tableInfoCells } from "../config";
+import { PARTICIPANT_FORM_SCHEMA, TABLE_INFO_CELLS } from "../config";
 import { Button } from "../layouts/buttons";
 import { Input, ValidationErrorMessage } from "../layouts/forms";
 
@@ -47,7 +47,7 @@ export function AddParticipant(props: Props) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FlexWrapper>
-        {tableInfoCells.map((cell) => (
+        {TABLE_INFO_CELLS.map((cell) => (
           <TableCell
             width={cell.width}
             noBottomPadding={Boolean(errors[cell.fieldName])}

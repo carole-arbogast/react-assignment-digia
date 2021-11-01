@@ -3,7 +3,7 @@ import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { PARTICIPANT_LIST_FORM_SCHEMA, tableInfoCells } from "../config";
+import { PARTICIPANT_LIST_FORM_SCHEMA, TABLE_INFO_CELLS } from "../config";
 import { TableHead, TableHeadCell, TableWrapper } from "../layouts/table";
 import TableRow from "./TableRow";
 
@@ -49,7 +49,7 @@ export function Table(props: Props) {
         <TableWrapper cellSpacing="0">
           <TableHead>
             <tr>
-              {tableInfoCells.map((cell) => (
+              {TABLE_INFO_CELLS.map((cell) => (
                 <TableHeadCell
                   width={cell.width}
                   onClick={() => onChangeSortOption(cell.fieldName)}

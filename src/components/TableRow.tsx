@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { tableInfoCells } from "../config";
+import { TABLE_INFO_CELLS } from "../config";
 import { Button, IconButton } from "../layouts/buttons";
 import { TableRowCell } from "../layouts/table";
 import TableCell from "./TableCell";
@@ -25,7 +25,7 @@ export function TableRow(props: Props) {
   return (
     <>
       <tr data-cy="participant-row">
-        {tableInfoCells.map((cell) => (
+        {TABLE_INFO_CELLS.map((cell) => (
           <TableCell
             key={cell.fieldName}
             index={index}

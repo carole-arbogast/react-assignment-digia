@@ -31,7 +31,7 @@ export const PARTICIPANT_LIST_FORM_SCHEMA = yup.object({
   participants: yup.array().of(PARTICIPANT_FORM_SCHEMA),
 });
 
-export const tableInfoCells: TableCell[] = [
+export const TABLE_INFO_CELLS: TableCell[] = [
   {
     fieldName: "name",
     header: "Name",
