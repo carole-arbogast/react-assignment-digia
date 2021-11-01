@@ -7,7 +7,7 @@ describe("Participant list", () => {
     cy.visit("/");
   });
 
-  it("should be able to create a new participant", () => {
+  it.only("should be able to create a new participant", () => {
     const newParticipant = {
       name: "John Doe",
       email: "john@doe.com",
@@ -46,6 +46,7 @@ describe("Participant list", () => {
     cy.get("[data-cy=validation-error-phone]").should("be.visible");
 
     cy.get("[data-cy=add-participant-name]").type(newParticipant.name);
+    cy.get("[data-cy=add-participant-btn]").click();
     cy.get("[data-cy=validation-error-name]").should("not.exist");
     cy.get("[data-cy=add-participant-email]").type("invalid email");
     cy.get("[data-cy=add-participant-btn]").click();
@@ -53,8 +54,10 @@ describe("Participant list", () => {
     cy.get("[data-cy=add-participant-email]")
       .clear()
       .type(newParticipant.email);
+    cy.get("[data-cy=add-participant-btn]").click();
     cy.get("[data-cy=validation-error-email]").should("not.exist");
     cy.get("[data-cy=add-participant-phone]").type(newParticipant.phone);
+    cy.get("[data-cy=add-participant-btn]").click();
     cy.get("[data-cy=validation-error-phone]").should("not.exist");
   });
 
